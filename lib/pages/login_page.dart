@@ -105,11 +105,9 @@ class _LoginPageState extends State<LoginPage> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(
+                      Navigator.pushNamed(
                         context,
-                        MaterialPageRoute(
-                          builder: (context) => const FAQ(),
-                        ),
+                        '/faq_page',
                       );
                     },
                     child: const Text(

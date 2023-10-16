@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_project/components/my_appbar.dart';
+import 'package:mobile_project/components/custom_appbar.dart';
+import 'package:mobile_project/components/custom_drawer.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -8,8 +9,9 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       appBar: CustomAppBar(
-        text: "Сделки",
+        text: "Аренда",
       ),
+      drawer: CustomDrawer(),
     );
   }
 }
