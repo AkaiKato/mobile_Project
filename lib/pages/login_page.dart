@@ -1,15 +1,49 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_project/components/my_button.dart';
 import 'package:mobile_project/components/my_textfield.dart';
+import 'package:mobile_project/helper/helper_functions.dart';
 import 'package:mobile_project/pages/FAQ_page.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   TextEditingController loginController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-  LoginPage({super.key});
+  void login() {
+    showDialog(
+      context: context,
+      builder: (context) => const Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
 
-  void login() {}
+    if (passwordController.text != "admin" && loginController.text != "admin") {
+      Navigator.pop(context);
+      displayMessageToUser("Пароль или логин не верны", context);
+    } else {
+      try {
+        //Do Request
+        Navigator.pop(context);
+
+        //Изменить на
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: ((context) => const FAQ()),
+          ),
+        );
+      } on Exception catch (e) {
+        Navigator.pop(context);
+        displayMessageToUser("Something happen", context);
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

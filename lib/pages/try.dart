@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_project/components/faq_textfield.dart';
 
 class ABC extends StatelessWidget {
   const ABC({super.key});
