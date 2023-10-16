@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_project/components/my_button.dart';
 import 'package:mobile_project/components/my_textfield.dart';
 
 class LoginPage extends StatelessWidget {
@@ -6,6 +7,8 @@ class LoginPage extends StatelessWidget {
   TextEditingController passwordController = TextEditingController();
 
   LoginPage({super.key});
+
+  void login() {}
 
   @override
   Widget build(BuildContext context) {
@@ -61,16 +64,29 @@ class LoginPage extends StatelessWidget {
               ),
 
               //Text Most Common QS
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Text(
-                    "Часто задаваемые вопросы",
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 13, 20, 207),
+                  GestureDetector(
+                    onTap: () {},
+                    child: const Text(
+                      "Часто задаваемые вопросы",
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 13, 20, 207),
+                      ),
                     ),
                   ),
                 ],
+              ),
+
+              const SizedBox(
+                height: 10,
+              ),
+
+              //Enter
+              MyButton(
+                text: "Вход",
+                onTap: login,
               )
             ],
           ),
