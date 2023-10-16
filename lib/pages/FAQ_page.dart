@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_project/components/faq_question.dart';
 import 'package:mobile_project/components/faq_textfield.dart';
+import 'package:mobile_project/components/my_appbar.dart';
 
 class FAQ extends StatefulWidget {
   const FAQ({super.key});
@@ -12,12 +13,10 @@ class FAQ extends StatefulWidget {
 class _FAQState extends State<FAQ> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('FAQ'),
-      ),
+    return const Scaffold(
+      appBar: CustomAppBar(text: "FAQ"),
       backgroundColor: Colors.white,
-      body: const SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(20),
           child: Column(
