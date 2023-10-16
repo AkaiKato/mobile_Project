@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_project/components/my_button.dart';
 import 'package:mobile_project/components/my_textfield.dart';
+import 'package:mobile_project/pages/FAQ_page.dart';
 
 class LoginPage extends StatelessWidget {
   TextEditingController loginController = TextEditingController();
@@ -68,7 +69,9 @@ class LoginPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      const FAQ();
+                    },
                     child: const Text(
                       "Часто задаваемые вопросы",
                       style: TextStyle(
