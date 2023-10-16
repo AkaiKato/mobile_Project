@@ -70,7 +70,12 @@ class LoginPage extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      const FAQ();
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const FAQ(),
+                        ),
+                      );
                     },
                     child: const Text(
                       "Часто задаваемые вопросы",
