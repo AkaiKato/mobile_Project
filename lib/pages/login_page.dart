@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:mobile_project/components/my_button.dart';
 import 'package:mobile_project/components/my_textfield.dart';
 import 'package:mobile_project/helper/helper_functions.dart';
-import 'package:mobile_project/pages/FAQ_page.dart';
 import 'package:mobile_project/pages/home_page.dart';
 
 class LoginPage extends StatefulWidget {
