@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_project/components/custom_appbar.dart';
+import 'package:mobile_project/components/my_appbar.dart';
 
 class AboutUs extends StatelessWidget {
   const AboutUs({super.key});

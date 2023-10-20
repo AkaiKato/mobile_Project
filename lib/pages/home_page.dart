@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_project/components/custom_appbar.dart';
+import 'package:mobile_project/components/my_appbar.dart';
 import 'package:mobile_project/components/custom_drawer.dart';
 import 'package:mobile_project/components/rent_comp/rent_main_container.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
@@ -23,6 +28,8 @@ class HomePage extends StatelessWidget {
             lastForTO: "350",
             payment: "646029",
             deposit: "Да",
+            place: "Канаш",
+            contractor: "Мотострой-11",
           ),
           RentContainer(
             name: "ADDo-60 инв.№ 104",
@@ -32,6 +39,8 @@ class HomePage extends StatelessWidget {
             lastForTO: "350",
             payment: "646029",
             deposit: "Да",
+            place: "Канаш",
+            contractor: "Мотострой-11",
           ),
           RentContainer(
             name: "ADDo-60 инв.№ 104",
@@ -41,6 +50,8 @@ class HomePage extends StatelessWidget {
             lastForTO: "350",
             payment: "646029",
             deposit: "Да",
+            place: "Канаш",
+            contractor: "Мотострой-11",
           ),
         ],
       ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_project/components/faq_question.dart';
 import 'package:mobile_project/components/faq_textfield.dart';
-import 'package:mobile_project/components/custom_appbar.dart';
+import 'package:mobile_project/components/my_appbar.dart';
 
 class FAQ extends StatefulWidget {
   const FAQ({super.key});
