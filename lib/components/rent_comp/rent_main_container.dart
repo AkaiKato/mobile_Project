@@ -1,29 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_project/components/models/rent_model.dart';
 import 'package:mobile_project/components/my_button.dart';
+import 'package:mobile_project/components/rent_comp/rent_dgu_alldate.dart';
 import 'package:mobile_project/components/rent_comp/rent_text.dart';
 
 class RentContainer extends StatefulWidget {
-  final String name;
-  final String startDate;
-  final String endDate;
-  final String power;
-  final String lastForTO;
-  final String payment;
-  final String deposit;
-  final String place;
-  final String contractor;
+  final String? name;
+  final String? startDate;
+  final String? endDate;
+  final int? power;
+  final int? lastForTO;
+  final int? payment;
+  final String? deposit;
+  final String? place;
+  final String? contractor;
+  final Rent curRent;
 
-  const RentContainer({
+  // ignore: prefer_const_constructors_in_immutables
+  RentContainer({
     super.key,
-    required this.name,
-    required this.startDate,
-    required this.endDate,
-    required this.power,
-    required this.lastForTO,
-    required this.payment,
-    required this.deposit,
-    required this.place,
-    required this.contractor,
+    this.name,
+    this.startDate,
+    this.endDate,
+    this.power,
+    this.lastForTO,
+    this.payment,
+    this.deposit,
+    this.place,
+    this.contractor,
+    required this.curRent,
   });
 
   @override
@@ -31,14 +36,15 @@ class RentContainer extends StatefulWidget {
 }
 
 class _RentContainerState extends State<RentContainer> {
-  void getSpecifiedRent(int id) {
+  void getSpecifiedRent(Rent curRent) {
     /*showDialog(
       context: context,
       builder: (context) => const Center(
         child: CircularProgressIndicator(),
       ),
     );*/
-    Navigator.pushNamed(context, '/rent_dgu_alldate');
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => DguAllData(rent: curRent)));
   }
 
   @override
@@ -60,7 +66,7 @@ class _RentContainerState extends State<RentContainer> {
             Container(
               padding: const EdgeInsets.only(bottom: 15),
               child: RentText(
-                text: widget.name,
+                text: widget.name != null ? widget.name.toString() : "",
                 fontSize: 25,
               ),
             ),
@@ -164,7 +170,7 @@ class _RentContainerState extends State<RentContainer> {
               padding: const EdgeInsets.only(left: 20, right: 20),
               child: MyButton(
                 text: "Подробнее",
-                onTap: () => getSpecifiedRent(1),
+                onTap: () => getSpecifiedRent(widget.curRent),
               ),
             )
           ],

@@ -56,6 +56,7 @@ class _LoginPageState extends State<LoginPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               //logo
+              // ignore: avoid_unnecessary_containers
               Container(
                 child: Image.asset('lib/Images/favicon.png'),
               ),

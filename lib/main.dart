@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_project/components/rent_comp/rent_dgu_alldate.dart';
 import 'package:mobile_project/pages/FAQ_page.dart';
 import 'package:mobile_project/pages/about_us_page.dart';
 import 'package:mobile_project/pages/home_page.dart';
 import 'package:mobile_project/pages/login_page.dart';
+import 'dart:io';
 
 void main() {
+  HttpOverrides.global = MyHttpOverrides();
   runApp(const MyApp());
 }
 
@@ -23,8 +24,16 @@ class MyApp extends StatelessWidget {
         '/faq_page': (context) => const FAQ(),
         '/home_page': (context) => const HomePage(),
         '/login_page': (context) => const LoginPage(),
-        '/rent_dgu_alldate': (context) => const DguAllData(),
       },
     );
+  }
+}
+
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
   }
 }
