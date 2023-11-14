@@ -23,25 +23,20 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
 
-    if (passwordController.text != "admin" && loginController.text != "admin") {
+    try {
+      //Do Request
+
       Navigator.pop(context);
-      displayMessageToUser("Пароль или логин не верны", context);
-    } else {
-      try {
-        //Do Request
 
-        Navigator.pop(context);
-
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: ((context) => const HomePage()),
-          ),
-        );
-      } on Exception catch (e) {
-        Navigator.pop(context);
-        displayMessageToUser("Something happen", context);
-      }
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: ((context) => const HomePage()),
+        ),
+      );
+    } on Exception catch (e) {
+      Navigator.pop(context);
+      displayMessageToUser("Something happen", context);
     }
   }
 
