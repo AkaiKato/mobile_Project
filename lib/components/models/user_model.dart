@@ -15,7 +15,7 @@ class User {
     required this.phoneNumber,
   });
 
-  factory User.fromJson(Map<dynamic, dynamic> json) {
+  factory User.fromJson(dynamic json) {
     return User(
       userId: int.parse('${json['userID']}'),
       userName: json['userName'],

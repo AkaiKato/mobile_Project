@@ -1,7 +1,11 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:mobile_project/components/models/user_model.dart';
 import 'package:mobile_project/components/my_button.dart';
 import 'package:mobile_project/components/my_textfield.dart';
+import 'package:mobile_project/data/secure_storage.dart';
 import 'package:mobile_project/helper/helper_functions.dart';
+import 'package:http/http.dart' as http;
 import 'package:mobile_project/pages/home_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -14,8 +18,9 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   TextEditingController loginController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  User? logUser;
 
-  void login() {
+  void login() async {
     showDialog(
       context: context,
       builder: (context) => const Center(
@@ -23,21 +28,27 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
 
-    try {
-      //Do Request
-
-      Navigator.pop(context);
+    if (context.mounted) Navigator.pop(context);
+    var tt = await fetchUser();
+    final json = jsonDecode(tt);
+    final results = json as dynamic;
+    logUser = User.fromJson(results);
+    if (logUser != null) {
+      SecureStorage().writeSecureData('1', logUser!.idElma.toString());
 
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: ((context) => const HomePage()),
+          builder: ((context) => HomePage(elmaId: logUser!.idElma)),
         ),
       );
-    } on Exception catch (e) {
-      Navigator.pop(context);
+    } else {
       displayMessageToUser("Something happen", context);
     }
+
+    /* Exception catch (e) {
+      Navigator.pop(context);
+      */
   }
 
   @override
@@ -129,5 +140,16 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+  }
+
+  Future<String> fetchUser() async {
+    String url =
+        'https://192.168.2.159:44318/Login?Email=${loginController.text}&Password=${passwordController.text}';
+    final uri = Uri.parse(url);
+    final responce = await http.get(uri);
+    if (responce.statusCode == 500) {
+      return "Пароль или Логин не верен";
+    }
+    return responce.body;
   }
 }

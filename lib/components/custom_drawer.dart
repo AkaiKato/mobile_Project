@@ -1,7 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_project/data/secure_storage.dart';
+import 'package:mobile_project/pages/home_page.dart';
 
-class CustomDrawer extends StatelessWidget {
+class CustomDrawer extends StatefulWidget {
   const CustomDrawer({super.key});
+
+  @override
+  State<CustomDrawer> createState() => _CustomDrawerState();
+}
+
+class _CustomDrawerState extends State<CustomDrawer> {
+  int? getElmaId;
+
+  @override
+  void initState() {
+    super.initState();
+    checkElmaId();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +38,15 @@ class CustomDrawer extends StatelessWidget {
                   title: const Text("Аренда"),
                   onTap: () {
                     Navigator.pop(context);
-
-                    Navigator.pushNamed(context, '/home_page');
+                    const AsyncSnapshot.waiting();
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: ((context) => HomePage(
+                              elmaId: getElmaId as int,
+                            )),
+                      ),
+                    );
                   },
                 ),
               ),
@@ -70,5 +92,16 @@ class CustomDrawer extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void checkElmaId() async {
+    Future<dynamic> ss = SecureStorage().readSecureData('1');
+    String tt = await ss;
+    var temp = int.tryParse(tt);
+    if (temp == null) {
+      getElmaId = 1;
+    } else {
+      getElmaId = temp;
+    }
   }
 }

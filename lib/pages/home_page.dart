@@ -7,18 +7,26 @@ import 'package:mobile_project/components/rent_comp/rent_main_container.dart';
 import 'package:http/http.dart' as http;
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  final int elmaId;
+
+  const HomePage({
+    super.key,
+    required this.elmaId,
+  });
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  // ignore: no_logic_in_create_state
+  State<HomePage> createState() => _HomePageState(elmaId);
 }
 
 class _HomePageState extends State<HomePage> {
   late Future<List<Rent>> rents;
+  int elmaId = 0;
+  _HomePageState(this.elmaId);
   @override
   void initState() {
     super.initState();
-    rents = fetchUsers();
+    rents = fetchRents(elmaId);
   }
 
   @override
@@ -63,14 +71,13 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Future<List<Rent>> fetchUsers() async {
-    const url = 'https://192.168.2.159:44318/GetStationsByID?id=1881';
+  Future<List<Rent>> fetchRents(int elmaId) async {
+    String url = 'https://192.168.2.159:44318/GetStationsByID?id=$elmaId';
     final uri = Uri.parse(url);
     final responce = await http.get(uri);
     final body = responce.body;
     final json = jsonDecode(body);
     final results = json as List<dynamic>;
-
     final rents = results.map((e) {
       return Rent.fromJson(e);
     }).toList();
