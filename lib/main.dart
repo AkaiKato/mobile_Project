@@ -1,11 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_project/data/secure_storage.dart';
 import 'package:mobile_project/pages/FAQ_page.dart';
 import 'package:mobile_project/pages/about_us_page.dart';
+import 'package:mobile_project/pages/home_page.dart';
 import 'package:mobile_project/pages/login_page.dart';
 import 'dart:io';
 
-void main() {
+int? elmaId;
+Future<void> main() async {
   HttpOverrides.global = MyHttpOverrides();
+  WidgetsFlutterBinding.ensureInitialized();
+  Future<dynamic> ss = SecureStorage().readSecureData('1');
+  String tt = await ss;
+  var temp = int.tryParse(tt);
+  if (temp != null) {
+    elmaId = temp;
+  }
   runApp(const MyApp());
 }
 
@@ -17,7 +27,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       //Сделать и поменять на checkAuth
-      home: const LoginPage(),
+      home:
+          elmaId == null ? const LoginPage() : HomePage(elmaId: elmaId as int),
       routes: {
         '/about_us_page': (context) => const AboutUs(),
         '/faq_page': (context) => const FAQ(),

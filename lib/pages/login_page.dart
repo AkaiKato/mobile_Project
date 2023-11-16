@@ -20,7 +20,7 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController passwordController = TextEditingController();
   User? logUser;
 
-  void login() async {
+  login() async {
     showDialog(
       context: context,
       builder: (context) => const Center(
@@ -30,10 +30,12 @@ class _LoginPageState extends State<LoginPage> {
 
     if (context.mounted) Navigator.pop(context);
     var tt = await fetchUser();
-    final json = jsonDecode(tt);
-    final results = json as dynamic;
-    logUser = User.fromJson(results);
-    if (logUser != null) {
+    if (tt == "err 500") {
+      displayMessageToUser("Логин или пароль не верен", context);
+    } else {
+      final json = jsonDecode(tt);
+      final results = json as dynamic;
+      logUser = User.fromJson(results);
       SecureStorage().writeSecureData('1', logUser!.idElma.toString());
 
       Navigator.pushReplacement(
@@ -42,13 +44,7 @@ class _LoginPageState extends State<LoginPage> {
           builder: ((context) => HomePage(elmaId: logUser!.idElma)),
         ),
       );
-    } else {
-      displayMessageToUser("Something happen", context);
     }
-
-    /* Exception catch (e) {
-      Navigator.pop(context);
-      */
   }
 
   @override
@@ -148,7 +144,7 @@ class _LoginPageState extends State<LoginPage> {
     final uri = Uri.parse(url);
     final responce = await http.get(uri);
     if (responce.statusCode == 500) {
-      return "Пароль или Логин не верен";
+      return "err 500";
     }
     return responce.body;
   }

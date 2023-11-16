@@ -86,6 +86,8 @@ class _CustomDrawerState extends State<CustomDrawer> {
               title: const Text("Выйти"),
               onTap: () {
                 Navigator.pop(context);
+                SecureStorage().deleteSecureData('1');
+                Navigator.pushNamed(context, '/login_page');
               },
             ),
           ),
