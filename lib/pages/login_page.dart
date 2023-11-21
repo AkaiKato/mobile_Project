@@ -30,18 +30,26 @@ class _LoginPageState extends State<LoginPage> {
 
     if (context.mounted) Navigator.pop(context);
     var tt = await fetchUser();
-    if (tt == "err 500") {
+    if (tt == "401") {
       displayMessageToUser("Логин или пароль не верен", context);
+    } else if (tt == "500") {
+      displayMessageToUser(
+          "Что-то пошло не так с сервером попытайтесь через некоторое время",
+          context);
     } else {
       final json = jsonDecode(tt);
       final results = json as dynamic;
       logUser = User.fromJson(results);
       SecureStorage().writeSecureData('1', logUser!.idElma.toString());
-
+      SecureStorage()
+          .writeSecureData('2', logUser!.verificationToken.toString());
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: ((context) => HomePage(elmaId: logUser!.idElma)),
+          builder: ((context) => HomePage(
+                elmaId: logUser!.idElma,
+                verToken: logUser!.verificationToken,
+              )),
         ),
       );
     }
@@ -140,11 +148,13 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<String> fetchUser() async {
     String url =
-        'https://192.168.2.159:44318/Login?Email=${loginController.text}&Password=${passwordController.text}';
+        'https://192.168.2.159:3128/Login?Email=${loginController.text}&Password=${passwordController.text}';
     final uri = Uri.parse(url);
     final responce = await http.get(uri);
-    if (responce.statusCode == 500) {
-      return "err 500";
+    if (responce.statusCode == 401) {
+      return "401";
+    } else if (responce.statusCode == 500) {
+      return "500";
     }
     return responce.body;
   }

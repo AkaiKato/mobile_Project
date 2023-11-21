@@ -11,6 +11,7 @@ class CustomDrawer extends StatefulWidget {
 
 class _CustomDrawerState extends State<CustomDrawer> {
   int? getElmaId;
+  String? getVerToken;
 
   @override
   void initState() {
@@ -44,6 +45,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                       MaterialPageRoute(
                         builder: ((context) => HomePage(
                               elmaId: getElmaId as int,
+                              verToken: getVerToken as String,
                             )),
                       ),
                     );
@@ -87,6 +89,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
               onTap: () {
                 Navigator.pop(context);
                 SecureStorage().deleteSecureData('1');
+                SecureStorage().deleteSecureData('2');
                 Navigator.pushNamed(context, '/login_page');
               },
             ),
@@ -98,12 +101,16 @@ class _CustomDrawerState extends State<CustomDrawer> {
 
   void checkElmaId() async {
     Future<dynamic> ss = SecureStorage().readSecureData('1');
+    Future<dynamic> kk = SecureStorage().readSecureData('2');
     String tt = await ss;
-    var temp = int.tryParse(tt);
-    if (temp == null) {
+    String verToken = await kk;
+    var elmaId = int.tryParse(tt);
+    if (elmaId == null) {
       getElmaId = 1;
+      getVerToken = "";
     } else {
-      getElmaId = temp;
+      getElmaId = elmaId;
+      getVerToken = verToken;
     }
   }
 }

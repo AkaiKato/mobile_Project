@@ -8,25 +8,28 @@ import 'package:http/http.dart' as http;
 
 class HomePage extends StatefulWidget {
   final int elmaId;
+  final String verToken;
 
   const HomePage({
     super.key,
     required this.elmaId,
+    required this.verToken,
   });
 
   @override
   // ignore: no_logic_in_create_state
-  State<HomePage> createState() => _HomePageState(elmaId);
+  State<HomePage> createState() => _HomePageState(elmaId, verToken);
 }
 
 class _HomePageState extends State<HomePage> {
   late Future<List<Rent>> rents;
   int elmaId = 0;
-  _HomePageState(this.elmaId);
+  String verToken = "";
+  _HomePageState(this.elmaId, this.verToken);
   @override
   void initState() {
     super.initState();
-    rents = fetchRents(elmaId);
+    rents = fetchRents(elmaId, verToken);
   }
 
   @override
@@ -71,8 +74,9 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Future<List<Rent>> fetchRents(int elmaId) async {
-    String url = 'https://192.168.2.159:44318/GetStationsByID?id=$elmaId';
+  Future<List<Rent>> fetchRents(int elmaId, String verToken) async {
+    String url =
+        'https://192.168.2.159:3128/GetStationsByID?id=$elmaId&token=$verToken';
     final uri = Uri.parse(url);
     final responce = await http.get(uri);
     final body = responce.body;

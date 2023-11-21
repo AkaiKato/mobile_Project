@@ -7,14 +7,18 @@ import 'package:mobile_project/pages/login_page.dart';
 import 'dart:io';
 
 int? elmaId;
+String? verToken;
 Future<void> main() async {
   HttpOverrides.global = MyHttpOverrides();
   WidgetsFlutterBinding.ensureInitialized();
   Future<dynamic> ss = SecureStorage().readSecureData('1');
+  Future<dynamic> kk = SecureStorage().readSecureData('2');
   String tt = await ss;
+  String tVerToken = await kk;
   var temp = int.tryParse(tt);
   if (temp != null) {
     elmaId = temp;
+    verToken = tVerToken;
   }
   runApp(const MyApp());
 }
@@ -26,9 +30,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      //Сделать и поменять на checkAuth
-      home:
-          elmaId == null ? const LoginPage() : HomePage(elmaId: elmaId as int),
+      home: elmaId == null
+          ? const LoginPage()
+          : HomePage(
+              elmaId: elmaId as int,
+              verToken: verToken as String,
+            ),
       routes: {
         '/about_us_page': (context) => const AboutUs(),
         '/faq_page': (context) => const FAQ(),

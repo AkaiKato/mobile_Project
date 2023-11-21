@@ -19,6 +19,7 @@ class Rent {
   final String prodlenie;
   final String usageTime;
   final String manager;
+  final String managerNumber;
   final int payment;
 
   Rent({
@@ -40,6 +41,7 @@ class Rent {
     required this.prodlenie,
     required this.usageTime,
     required this.manager,
+    required this.managerNumber,
     required this.payment,
   });
 
@@ -66,6 +68,7 @@ class Rent {
       prodlenie: json['prodlenie'] == "true" ? "Да" : "Нет",
       usageTime: json['usageTime'],
       manager: json['managerName'],
+      managerNumber: json['managerPhoneNumber'],
       payment: int.parse('${json['payment']['payed']}'),
     );
   }
