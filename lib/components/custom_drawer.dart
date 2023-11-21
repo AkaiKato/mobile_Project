@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_project/data/secure_storage.dart';
+import 'package:mobile_project/pages/avalible_rent_page.dart';
 import 'package:mobile_project/pages/home_page.dart';
 
 class CustomDrawer extends StatefulWidget {
@@ -31,7 +32,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
               DrawerHeader(
                 child: Image.asset('lib/Images/favicon.png'),
               ),
-              //СДЕЛКИ
+              //АРЕНДЫ КА
               Padding(
                 padding: const EdgeInsets.only(left: 12),
                 child: ListTile(
@@ -44,6 +45,27 @@ class _CustomDrawerState extends State<CustomDrawer> {
                       context,
                       MaterialPageRoute(
                         builder: ((context) => HomePage(
+                              elmaId: getElmaId as int,
+                              verToken: getVerToken as String,
+                            )),
+                      ),
+                    );
+                  },
+                ),
+              ),
+              //АРЕНДЫ ДОСТУПНЫЕ
+              Padding(
+                padding: const EdgeInsets.only(left: 12),
+                child: ListTile(
+                  leading: const Icon(Icons.business_sharp),
+                  title: const Text("Доступные аренды"),
+                  onTap: () {
+                    Navigator.pop(context);
+                    const AsyncSnapshot.waiting();
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: ((context) => AvalibleRents(
                               elmaId: getElmaId as int,
                               verToken: getVerToken as String,
                             )),

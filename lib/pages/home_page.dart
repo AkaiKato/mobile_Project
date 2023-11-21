@@ -40,6 +40,7 @@ class _HomePageState extends State<HomePage> {
       ),
       drawer: const CustomDrawer(),
       body: SingleChildScrollView(
+        padding: const EdgeInsets.only(bottom: 10),
         child: Column(
           children: [
             FutureBuilder<List<Rent>>(

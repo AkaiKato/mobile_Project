@@ -1,13 +1,13 @@
 class AvalibleRent {
-  String modelName;
-  String modelEngine;
-  String powerNominal;
-  String dguType;
-  String size;
-  String weight;
-  String yearIssue;
-  String costAt100perc;
-  String fuelVolume;
+  String? modelName;
+  String? modelEngine;
+  String? powerNominal;
+  String? dguType;
+  String? size;
+  String? weight;
+  String? yearIssue;
+  String? costAt100perc;
+  String? fuelVolume;
 
   AvalibleRent({
     required this.modelName,
@@ -25,13 +25,13 @@ class AvalibleRent {
     return AvalibleRent(
       modelName: json['model'],
       modelEngine: json['stationParm']['modelEngine'],
-      powerNominal: json['stationParm']['powerNominal'],
+      powerNominal: json['stationParm']['powerNominal'].toString(),
       dguType: json['stationParm']['typeDgu'],
       size: json['stationParm']['size'],
-      weight: json['stationParm']['weight'],
+      weight: json['stationParm']['weight'].toString(),
       yearIssue: json['stationParm']['yearIssue'],
-      costAt100perc: json['stationParm']['rashodAt100'],
-      fuelVolume: json['stationParm']['fuelVolume'],
+      costAt100perc: json['stationParm']['rashodAt100'].toString(),
+      fuelVolume: json['stationParm']['fuelVolume'].toString(),
     );
   }
 }
