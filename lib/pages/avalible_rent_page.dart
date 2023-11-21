@@ -64,6 +64,7 @@ class _AvalibleRents extends State<AvalibleRents> {
                 List<AvalibleRent> rents = snapshot.data ?? [];
                 return ListView.builder(
                   shrinkWrap: true,
+                  physics: const ClampingScrollPhysics(),
                   itemCount: rents.length,
                   itemBuilder: (context, index) {
                     AvalibleRent rent = rents[index];

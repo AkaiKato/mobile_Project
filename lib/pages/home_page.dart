@@ -50,6 +50,7 @@ class _HomePageState extends State<HomePage> {
                 List<Rent> rents = snapshot.data ?? [];
                 return ListView.builder(
                   shrinkWrap: true,
+                  physics: const ClampingScrollPhysics(),
                   itemCount: rents.length,
                   itemBuilder: (context, index) {
                     Rent rent = rents[index];
